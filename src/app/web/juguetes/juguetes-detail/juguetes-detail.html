@@ -5,26 +5,101 @@
     </div>
     <div class="col-md-6">
       <form [formGroup]="formJuguete" (ngSubmit)="onSubmit()">
-        <div class="form-floating mb-3">
+        <div class="form-floating mb-3 @if ">
           <input type="text" class="form-control" formControlName="nombre" id="nombre" placeholder="Nombre">
           <label for="nombre" class="form-label">Nombre</label>
         </div>
+        @if (nombre && nombre.invalid && (nombre.dirty || nombre.touched)) {
+          <div class="alert alert-danger" role="alert">
+            @if (nombre.errors && nombre.errors['required']) {
+              <fa-icon [icon]="faExclamationTriangle"></fa-icon>
+              El nombre del juguete es requerido
+            }
+            @if (nombre.errors && nombre.errors['minlength']) {
+              <fa-icon [icon]="faExclamationTriangle"></fa-icon>
+              El nombre del juguete debe tener al menos 3 carácteres
+            }
+            @if (nombre.errors && nombre.errors['maxlength']) {
+              <fa-icon [icon]="faExclamationTriangle"></fa-icon>
+              El nombre del juguete no debe tener mas de 20 carácteres
+            }
+          </div>
+        }
         <div class="form-floating mb-3">
           <input type="text" class="form-control" formControlName="imagen" id="imagen" placeholder="Imagen">
           <label for="imagen" class="form-label">Imagen</label>
         </div>
+        @if (imagen && imagen.invalid && (imagen.dirty || imagen.touched)) {
+          <div class="alert alert-danger" role="alert">
+            @if (imagen.errors && imagen.errors['minlength']) {
+              <fa-icon [icon]="faExclamationTriangle"></fa-icon>
+              La imagen del juguete debe tener al menos 3 carácteres
+            }
+            @if (imagen.errors && imagen.errors['maxlength']) {
+              <fa-icon [icon]="faExclamationTriangle"></fa-icon>
+              La imagen del juguete no debe tener mas de 200 carácteres
+            }
+          </div>
+        }
         <div class="form-floating mb-3">
           <input type="text" class="form-control" formControlName="categoria" id="categoria" placeholder="Categoría">
           <label for="categoria" class="form-label">Categoría</label>
         </div>
+        @if (categoria && categoria.invalid && (categoria.dirty || categoria.touched)) {
+          <div class="alert alert-danger" role="alert">
+            @if (categoria.errors && categoria.errors['required']) {
+              <fa-icon [icon]="faExclamationTriangle"></fa-icon>
+              La categoría del juguete es requerida}
+            @if (categoria.errors && categoria.errors['minlength']) {
+              <fa-icon [icon]="faExclamationTriangle"></fa-icon>
+              La categoría del juguete debe tener al menos 3 carácteres
+            }
+            @if (categoria.errors && categoria.errors['maxlength']) {
+              <fa-icon [icon]="faExclamationTriangle"></fa-icon>
+              La categoría del juguete no debe tener mas de 20 carácteres
+            }
+          </div>
+        }
         <div class="form-floating mb-3">
-          <input type="text" class="form-control" formControlName="edadMinima" id="edadMinima" placeholder="Edad Mínima">
+          <input type="number" class="form-control" formControlName="edadMinima" id="edadMinima" placeholder="Edad Mínima">
           <label for="edadMinima" class="form-label">Edad Mínima</label>
         </div>
+        @if (edadMinima && edadMinima.invalid && (edadMinima.dirty || edadMinima.touched)) {
+          <div class="alert alert-danger" role="alert">
+            @if (edadMinima.errors && edadMinima.errors['required']) {
+              <fa-icon [icon]="faExclamationTriangle"></fa-icon>
+              La edad mínima del juguete es requerida
+            }
+            @if (edadMinima.errors && edadMinima.errors['min']) {
+              <fa-icon [icon]="faExclamationTriangle"></fa-icon>
+              La edad mínima del juguete debe ser 0 o más años
+            }
+            @if (edadMinima.errors && edadMinima.errors['max']) {
+              <fa-icon [icon]="faExclamationTriangle"></fa-icon>
+              La edad mínima del juguete no puede ser mayor a 120 años
+            }
+          </div>
+        }
         <div class="form-floating mb-3">
           <input type="number" class="form-control" formControlName="precio" id="precio" placeholder="Precio">
           <label for="precio" class="form-label">Precio</label>
         </div>
+        @if (precio && precio.invalid && (precio.dirty || precio.touched)) {
+          <div class="alert alert-danger" role="alert">
+            @if (precio.errors && precio.errors['required']) {
+              <fa-icon [icon]="faExclamationTriangle"></fa-icon>
+              El precio mínimo del juguete es requerida
+            }
+            @if (precio.errors && precio.errors['min']) {
+              <fa-icon [icon]="faExclamationTriangle"></fa-icon>
+              El precio mínimo del juguete debe ser 0€ o más
+            }
+            @if (precio.errors && precio.errors['max']) {
+              <fa-icon [icon]="faExclamationTriangle"></fa-icon>
+              El precio mínimo del juguete no puede ser mayor a 100.000€
+            }
+          </div>
+        }
         <div class="row justify-content-end my-3">
           <div class="col-2">
             <button type="submit" [disabled]="formJuguete.invalid" class="btn btn-outline-success btn-block">Guardar</button>

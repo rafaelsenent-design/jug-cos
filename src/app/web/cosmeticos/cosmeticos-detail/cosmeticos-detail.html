@@ -4,30 +4,90 @@
       <h2 class="text-center text-uppercase text-secondary">{{idCosmetico?'EDITANDO '+ name.value : 'Nuevo Cosmetico'}}</h2>
     </div>
     <div class="col-md-6">
-      <form [formGroup]="formCosmetico" (ngSubmit)="onSubmit()">
+      <form [formGroup]="formCosmetico" (ngSubmit)="onSubmit()" class="needs-validation">
         <div class="form-floating mb-3">
-          <input type="text" class="form-control" formControlName="name" id="name" placeholder="Nombre">
+          <input type="text" class="form-control " formControlName="name" id="name" placeholder="Nombre" minlength="3" maxlength="20" [class.is-invalid]="name.invalid && name.touched" required>
+          @if(name.invalid && name.touched){
+            @if (name.errors && name.errors['required']) {
+              <div class="invalid-feedback" >
+                El nombre del producto es requerido
+              </div>
+            }
+            @if (name.errors && name.errors['minlength']) {
+              <div class="invalid-feedback" >
+                El nombre del producto es debe tener al menos 3 carácteres
+              </div>
+            }
+          }
           <label for="name" class="form-label">Nombre</label>
         </div>
         <div class="form-floating mb-3">
-          <input type="text" class="form-control" formControlName="image" id="image" placeholder="Imagen">
+          <input type="text" class="form-control" formControlName="image" id="image" placeholder="Imagen" minlength="10" maxlength="200" [class.is-invalid]="image.invalid && image.touched">
+          @if(image.invalid && image.touched){
+            @if (image.errors && image.errors['minlength']) {
+              <div class="invalid-feedback" >
+                La imagen del producto es debe tener al menos 10 carácteres
+              </div>
+            }
+          }
           <label for="image" class="form-label">Imagen</label>
         </div>
         <div class="form-floating mb-3">
-          <input type="text" class="form-control" formControlName="type" id="type" placeholder="Tipo">
+          <input type="text" class="form-control" formControlName="type" id="type" placeholder="Tipo" minlength="3" maxlength="20" [class.is-invalid]="type.invalid && type.touched" required>
+          @if(type.invalid && type.touched){
+            @if (type.errors && type.errors['required']) {
+              <div class="invalid-feedback" >
+                El tipo del producto es requerido
+              </div>
+            }
+            @if (type.errors && type.errors['minlength']) {
+              <div class="invalid-feedback" >
+                El tipo del producto es debe tener al menos 3 carácteres
+              </div>
+            }
+          }
           <label for="type" class="form-label">Tipo</label>
         </div>
         <div class="form-floating mb-3">
-          <input type="text" class="form-control" formControlName="brand" id="brand" placeholder="Marca">
+          <input type="text" class="form-control" formControlName="brand" id="brand" placeholder="Marca" minlength="3" maxlength="20" [class.is-invalid]="brand.invalid && brand.touched" required>
+          @if(brand.invalid && brand.touched){
+            @if (brand.errors && brand.errors['required']) {
+              <div class="invalid-feedback" >
+                La marca del producto es requerida
+              </div>
+            }
+            @if (brand.errors && brand.errors['minlength']) {
+              <div class="invalid-feedback" >
+                La marca del producto es debe tener al menos 3 carácteres
+              </div>
+            }
+          }
           <label for="brand" class="form-label">Marca</label>
         </div>
         <div class="form-floating mb-3">
-          <input type="number" class="form-control" formControlName="price" id="price" placeholder="Precio">
+          <input type="number" class="form-control" formControlName="price" id="price" placeholder="Precio" min="0" max="100000" [class.is-invalid]="price.invalid && price.touched" required>
+          @if(price.invalid && price.touched){
+            @if (price.errors && price.errors['required']) {
+              <div class="invalid-feedback" >
+                El precio del producto es requerido
+              </div>
+            }
+            @if (price.errors && price.errors['min']) {
+              <div class="invalid-feedback" >
+                El precio del producto es debe ser al menos de 0€
+              </div>
+            }
+            @if (price.errors && price.errors['max']) {
+              <div class="invalid-feedback" >
+                El precio del producto es debe ser como mucho de 100.000€
+              </div>
+            }
+          }
           <label for="price" class="form-label">Precio</label>
         </div>
         <div class="row justify-content-end my-3">
           <div class="col-2">
-            <button type="submit" [disabled]="formCosmetico.invalid" class="btn btn-outline-success btn-block">Guardar</button>
+            <button type="submit" [disabled]="formCosmetico.invalid"  class="btn btn-outline-success btn-block">Guardar</button>
           </div>
         </div>
       </form>

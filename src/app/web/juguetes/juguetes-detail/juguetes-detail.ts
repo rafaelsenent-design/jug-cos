@@ -1,6 +1,6 @@
 import {Component, inject, Input, OnInit} from '@angular/core';
 import {JugService} from '../../../services/jug-service';
-import {FormBuilder, FormGroup, ReactiveFormsModule} from '@angular/forms';
+import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
 import {CurrencyPipe} from '@angular/common';
 import {FaIconComponent} from '@fortawesome/angular-fontawesome';
 import {faEdit} from '@fortawesome/free-regular-svg-icons/faEdit';
@@ -8,6 +8,8 @@ import {faTrashCan} from '@fortawesome/free-regular-svg-icons';
 import {Router} from '@angular/router';
 import {NgbToast} from '@ng-bootstrap/ng-bootstrap';
 import {Toast} from '../../../common/interfaces';
+import {faExclamationTriangle} from '@fortawesome/free-solid-svg-icons';
+
 
 @Component({
   selector: 'app-juguetes-detail',
@@ -35,11 +37,11 @@ export class JuguetesDetail implements OnInit {
 
   formJuguete: FormGroup = this.formBuilder.group({
     _id: [''],
-    nombre: [''],
-    imagen: [''],
-    categoria: [''],
-    edadMinima: [0],
-    precio: [0]
+    nombre: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(20)]],
+    imagen: ['', [Validators.minLength(10), Validators.maxLength(200)]],
+    categoria: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(20)]],
+    edadMinima: [0, [Validators.required, Validators.min(0), Validators.max(120)]],
+    precio: [0, [Validators.required, Validators.min(0), Validators.max(100000)]],
   });
 
   get nombre(): any {return this.formJuguete.get('nombre')!;}
@@ -126,4 +128,7 @@ export class JuguetesDetail implements OnInit {
       )
     }
   }
+
+  protected readonly faExclamationTriangle = faExclamationTriangle;
+
 }

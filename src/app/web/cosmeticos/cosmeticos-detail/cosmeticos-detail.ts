@@ -1,6 +1,6 @@
 import {Component, inject, Input, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
-import {FormBuilder, FormGroup, ReactiveFormsModule} from '@angular/forms';
+import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
 import {CosService} from '../../../services/cos-service';
 import {faEdit} from '@fortawesome/free-regular-svg-icons/faEdit';
 import {faTrashCan} from '@fortawesome/free-regular-svg-icons';
@@ -25,12 +25,12 @@ export class CosmeticosDetail implements OnInit {
   loaded = false;
 
   formCosmetico: FormGroup = this.formBuilder.group({
-    _id: [''],
-    name: [''],
-    image: [''],
-    type: [''],
-    brand: [''],
-    price: [0]
+    _id:  [''],
+    name: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(20)]],
+    image: ['', [Validators.minLength(10), Validators.maxLength(200)]],
+    type: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(20)]],
+    brand: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(20)]],
+    price: [0, [Validators.required, Validators.min(0), Validators.max(100000)]]
   });
 
   get _id(): any {return this.formCosmetico.get('_id')!;}
