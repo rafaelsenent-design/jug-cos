@@ -1,0 +1,42 @@
+@if (loaded) {
+  <div class="row my-3">
+    <div class="col-12 d-flex justify-content-center">
+      <ngb-pagination
+        [collectionSize]="total"
+        [(page)]="currentPage"
+        [pageSize]="10"
+        [maxSize]="5"
+        [rotate]="true"
+        [boundaryLinks]="true"
+        [ellipses]="true"
+        (pageChange)="changePage($event)">
+        <ng-template ngbPaginationPrevious>Anterior</ng-template>
+        <ng-template ngbPaginationNext>Siguiente</ng-template>
+      </ngb-pagination>"
+    </div>
+    @for (cosmetico of cosmeticos(); track cosmetico._id) {
+      <div class="col-md-4">
+        <div class="card shadow">
+          <div class="card-header bg-light-subtle">
+            <div class="card-title">{{cosmetico.name}}</div>
+          </div>
+          <img [src]="cosmetico.image" height="200" [alt]="cosmetico.name" class="card-img-top">
+          <div class="card-body">
+            <p class="badge bg-primary">{{cosmetico.type}}</p>
+            <p><strong>Marca: </strong>{{cosmetico.brand}}</p>
+          </div>
+          <div class="card-footer d-flex justify-content-between">
+            <p>{{cosmetico.price | currency:'EUR'}}</p>
+            <h4><fa-icon [routerLink]="'/cosmeticos/edit/' + cosmetico._id" [icon]="faEdit" class="text-primary"></fa-icon><fa-icon  (click)="deleteCosmetico(cosmetico)" [icon]="faTrashCan" class="text-danger"></fa-icon> </h4>
+          </div>
+        </div>
+      </div>
+    }
+  </div>
+}@else {
+  <div class="d-flex justify-content-center align-items-center h-100">
+    <div class="spinner-border text-primary" role="status">
+      <span class="visually-hidden">Loading...</span>
+    </div>
+  </div>
+}

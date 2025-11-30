@@ -1,0 +1,59 @@
+@if (loaded) {
+  <div class="container">
+    <div class="w-100 d-flex">
+      <h3 class="mt-2 d-inline-block me-auto">{{juguetes().length}} Juguetes</h3>
+    </div>
+    <div class="container">
+      @for (juguete of juguetes(); track juguete._id) {
+        <div class="row border rounded">
+          <div class="col-md-2 align-self-center">
+            <img [src]="juguete.imagen || '/images/no-image.jpg'" class="img-fluid rounded" [alt]="juguete.nombre">
+          </div>
+          <div class="col-md-8 ms-5">
+            <div class="row mt-3 pt-2">
+              <div class="col-md-12">
+                <h5 class="text-uppercase">{{juguete.nombre}}</h5>
+                <small class="text-secondary"><strong>Categoría: </strong>{{juguete.categoria}}</small>
+                <p><strong>Edad mínima: </strong><strong class="badge p-3" [ngClass]="{'bg-success': juguete.edadMinima < 10, 'bg-warning': juguete.edadMinima >= 10 && juguete.edadMinima < 18,'bg-danger': juguete.edadMinima >= 18}">+{{juguete.edadMinima}}</strong></p>
+                <p class="text-primary"><strong>Precio: </strong>{{juguete.precio | currency:'EUR': 'symbol':'1.2-2'}}</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-1 ms-5 remove d-flex">
+            <h3 class="ms-auto align-self-center">
+              <div class="btn-group">
+                <button type="button" data-bs-toggle="modal" [attr.data-bs-target]="'#modal-'+juguete._id" class="btn btn-outline-danger"><i class="bi bi-trash" style="font-size: 1rem"></i></button>
+                <button type="button" [routerLink]="'/juguetes/edit/' + juguete._id" class="btn btn-outline-secondary"><i class="bi bi-pencil-square" style="font-size: 1rem"></i></button>
+              </div>
+            </h3>
+          </div>
+        </div>
+        <!-- Modal -->
+        <div class="modal fade" [id]="'modal-'+juguete._id" tabindex="-1" aria-labelledby="ModalLabel" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header bg-danger text-white">
+                <h1 class="modal-title text-light fs-5" id="ModalLabel">Eliminar {{juguete.nombre}}</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+                ¿Desea eliminar el juguete <strong><span class="text-danger">{{juguete.nombre}}</span></strong>?
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-danger" data-bs-dismiss="modal" (click)="deleteJuguete(juguete._id)">Eliminar</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      }
+    </div>
+
+  </div>
+}@else {
+  <div class="d-flex justify-content-center align-items-center h-100">
+    <div class="spinner-border text-primary" role="status">
+      <span class="visually-hidden">Loading...</span>
+    </div>
+  </div>
+}

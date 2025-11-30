@@ -1,0 +1,66 @@
+@if (loaded) {
+  <div class="row my-3">
+    <div class="col-12 my-2">
+      <h2 class="text-center text-uppercase text-secondary">{{idJuguete?'EDITANDO '+ nombre.value : 'Nuevo Juguete'}}</h2>
+    </div>
+    <div class="col-md-6">
+      <form [formGroup]="formJuguete" (ngSubmit)="onSubmit()">
+        <div class="form-floating mb-3">
+          <input type="text" class="form-control" formControlName="nombre" id="nombre" placeholder="Nombre">
+          <label for="nombre" class="form-label">Nombre</label>
+        </div>
+        <div class="form-floating mb-3">
+          <input type="text" class="form-control" formControlName="imagen" id="imagen" placeholder="Imagen">
+          <label for="imagen" class="form-label">Imagen</label>
+        </div>
+        <div class="form-floating mb-3">
+          <input type="text" class="form-control" formControlName="categoria" id="categoria" placeholder="Categoría">
+          <label for="categoria" class="form-label">Categoría</label>
+        </div>
+        <div class="form-floating mb-3">
+          <input type="text" class="form-control" formControlName="edadMinima" id="edadMinima" placeholder="Edad Mínima">
+          <label for="edadMinima" class="form-label">Edad Mínima</label>
+        </div>
+        <div class="form-floating mb-3">
+          <input type="number" class="form-control" formControlName="precio" id="precio" placeholder="Precio">
+          <label for="precio" class="form-label">Precio</label>
+        </div>
+        <div class="row justify-content-end my-3">
+          <div class="col-2">
+            <button type="submit" [disabled]="formJuguete.invalid" class="btn btn-outline-success btn-block">Guardar</button>
+          </div>
+        </div>
+      </form>
+    </div>
+    <div class="col-md-4 offset-md-2">
+      <div class="card shadow">
+        <div class="card-header bg-light-subtle">
+          <div class="card-title">{{nombre.value? nombre.value : 'Nombre del juguete'}}</div>
+        </div>
+        <img [src]="imagen.value? imagen.value : '/images/no-image.jpg'" height="200" [alt]="nombre.value" class="card-img-top">
+        <div class="card-body">
+          <p class="badge bg-primary">{{categoria.value? categoria.value : 'Categoría del juguete'}}</p>
+          <p><strong>Edad Mínima: </strong>{{edadMinima.value? edadMinima.value : 'Edad Mínima'}}</p>
+        </div>
+        <div class="card-footer d-flex justify-content-between">
+          <p>{{precio.value? (precio.value | currency:'EUR') : 'Precio del producto'}}</p>
+          <h4><fa-icon [icon]="faEdit" class="text-primary"></fa-icon><fa-icon [icon]="faTrashCan" class="text-danger"></fa-icon> </h4>
+        </div>
+      </div>
+    </div>
+  </div>
+  @if (show){
+    <ngb-toast [delay]="1000"
+               class="toast-container position-fixed top-0 end-0 p-3" style="z-index: 1200"
+               [autohide]="true"
+               [class]="toast.className"
+    >{{toast.text}}
+    </ngb-toast>
+  }
+} @else {
+  <div class="d-flex justify-content-center align-items-center h-100">
+    <div class="spinner-border text-primary" role="status">
+      <span class="visually-hidden">Loading...</span>
+    </div>
+  </div>
+}
