@@ -6,7 +6,7 @@
     <div class="col-md-6">
       <form [formGroup]="formCosmetico" (ngSubmit)="onSubmit()" class="needs-validation">
         <div class="form-floating mb-3">
-          <input type="text" class="form-control " formControlName="name" id="name" placeholder="Nombre" minlength="3" maxlength="20" [class.is-invalid]="name.invalid && name.touched" required>
+          <input type="text" class="form-control " formControlName="name"  [class.is-valid]="name.valid" id="name" placeholder="Nombre" minlength="3" maxlength="20" [class.is-invalid]="name.invalid && name.touched" required>
           @if(name.invalid && name.touched){
             @if (name.errors && name.errors['required']) {
               <div class="invalid-feedback" >
@@ -22,7 +22,7 @@
           <label for="name" class="form-label">Nombre</label>
         </div>
         <div class="form-floating mb-3">
-          <input type="text" class="form-control" formControlName="image" id="image" placeholder="Imagen" minlength="10" maxlength="200" [class.is-invalid]="image.invalid && image.touched">
+          <input type="text" class="form-control" formControlName="image" id="image" placeholder="Imagen" [class.is-valid]="image.valid" minlength="10" maxlength="200" [class.is-invalid]="image.invalid && image.touched">
           @if(image.invalid && image.touched){
             @if (image.errors && image.errors['minlength']) {
               <div class="invalid-feedback" >
@@ -33,7 +33,7 @@
           <label for="image" class="form-label">Imagen</label>
         </div>
         <div class="form-floating mb-3">
-          <input type="text" class="form-control" formControlName="type" id="type" placeholder="Tipo" minlength="3" maxlength="20" [class.is-invalid]="type.invalid && type.touched" required>
+          <input type="text" class="form-control" formControlName="type" id="type" placeholder="Tipo" [class.is-valid]="type.valid" minlength="3" maxlength="20" [class.is-invalid]="type.invalid && type.touched" required>
           @if(type.invalid && type.touched){
             @if (type.errors && type.errors['required']) {
               <div class="invalid-feedback" >
@@ -49,7 +49,7 @@
           <label for="type" class="form-label">Tipo</label>
         </div>
         <div class="form-floating mb-3">
-          <input type="text" class="form-control" formControlName="brand" id="brand" placeholder="Marca" minlength="3" maxlength="20" [class.is-invalid]="brand.invalid && brand.touched" required>
+          <input type="text" class="form-control" formControlName="brand" id="brand" placeholder="Marca" minlength="3" [class.is-valid]="brand.valid" maxlength="20" [class.is-invalid]="brand.invalid && brand.touched" required>
           @if(brand.invalid && brand.touched){
             @if (brand.errors && brand.errors['required']) {
               <div class="invalid-feedback" >
@@ -65,7 +65,7 @@
           <label for="brand" class="form-label">Marca</label>
         </div>
         <div class="form-floating mb-3">
-          <input type="number" class="form-control" formControlName="price" id="price" placeholder="Precio" min="0" max="100000" [class.is-invalid]="price.invalid && price.touched" required>
+          <input type="number" class="form-control" formControlName="price" id="price" placeholder="Precio" min="0" max="100000" [class.is-valid]="price.valid" [class.is-invalid]="price.invalid && price.touched" required>
           @if(price.invalid && price.touched){
             @if (price.errors && price.errors['required']) {
               <div class="invalid-feedback" >
@@ -87,7 +87,7 @@
         </div>
         <div class="row justify-content-end my-3">
           <div class="col-2">
-            <button type="submit" [disabled]="formCosmetico.invalid"  class="btn btn-outline-success btn-block">Guardar</button>
+            <button type="submit" class="btn btn-outline-success btn-block">Guardar</button>
           </div>
         </div>
       </form>

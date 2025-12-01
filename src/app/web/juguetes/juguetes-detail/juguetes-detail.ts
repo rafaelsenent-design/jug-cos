@@ -9,6 +9,7 @@ import {Router} from '@angular/router';
 import {NgbToast} from '@ng-bootstrap/ng-bootstrap';
 import {Toast} from '../../../common/interfaces';
 import {faExclamationTriangle} from '@fortawesome/free-solid-svg-icons';
+import {FormValidators} from '../../../Validators/FormValidators';
 
 
 @Component({
@@ -37,7 +38,7 @@ export class JuguetesDetail implements OnInit {
 
   formJuguete: FormGroup = this.formBuilder.group({
     _id: [''],
-    nombre: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(20)]],
+    nombre: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(20), FormValidators.notOnlySpaces, FormValidators.forbiddenWord('sex')]],
     imagen: ['', [Validators.minLength(10), Validators.maxLength(200)]],
     categoria: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(20)]],
     edadMinima: [0, [Validators.required, Validators.min(0), Validators.max(120)]],
@@ -83,6 +84,10 @@ export class JuguetesDetail implements OnInit {
   protected readonly faTrashCan = faTrashCan;
 
   onSubmit() {
+    if (this.formJuguete.invalid) {
+      this.formJuguete.markAllAsTouched();
+      return;
+    }
     if (this.idJuguete) {
       // Patch
       this.jugService.patchJuguete(this.formJuguete.value).subscribe(
